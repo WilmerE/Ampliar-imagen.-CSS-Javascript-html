@@ -104,28 +104,41 @@
 	</table>
 	</div>
 	<script type="text/javascript">
+		var clase = document.querySelector(".foto")
+		inicializarPrev(clase)
 
-		//Constantes para insertar la imgen y mostrarla
-		const prev 		= document.querySelector("#zoom");
-		const put_image = document.querySelector("#image");
+		function inicializarPrev(clase){
 
-		//Deshabilitamos la vista del prev
-		prev.style.display = "none";
+			var numClase = clase.classList;
+			//Constantes para insertar la imgen y mostrarla
+			const prev 		= document.querySelector("#zoom");
+			const put_image = document.querySelector("#image");
 
-		//Recorremos todos los divs que contienen las imagenes
-		[].forEach.call(
-			//Podemos seleccionar la imagen o el div que los contiene por medio de la clase
-			//document.querySelectorAll('.content-foto'),
-			document.querySelectorAll('.foto'),
-			function (el) {
-				//Accedemos a la data que contiene el id de la imagen y la enviamos a la función
-				//mouse_event(el.getAttribute('data-idFoto'))
-				mouse_event(el.id)
+			//Deshabilitamos la vista del prev
+			prev.style.display = "none";
+
+			for(var x=0; x < numClase.length; x++){
+				numClase.value == "foto" ? recorridoLista(numClase.value, put_image, prev) : alert("No se encontró la clase {foto}");
 			}
-		)
+
+		}
+
+		function recorridoLista(clase, put_image, prev){
+			//Recorremos todos los divs que contienen las imagenes
+			[].forEach.call(
+				//Podemos seleccionar la imagen o el div que los contiene por medio de la clase
+				//document.querySelectorAll('.content-foto'),
+				document.querySelectorAll('.foto'),
+				function (el) {
+					//Accedemos a la data que contiene el id de la imagen y la enviamos a la función
+					//mouse_event(el.getAttribute('data-idFoto'))
+					mouse_event(el.id, put_image, prev)
+				}
+			)
+		}
 
 		//Funcion para el evento mouse que recibe el id de la imagen
-		function mouse_event(id_image){
+		function mouse_event(id_image, put_image, prev){
 			//Seleccionamos la imagen con el id recibido
 			var image = document.querySelector("#"+id_image)
 			//Clonamos la imagen y la almacenamos en otra variable
