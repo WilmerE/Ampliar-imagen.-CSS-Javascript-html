@@ -107,43 +107,43 @@
 		var clase = document.querySelector(".foto")
 		inicializarPrev(clase)
 
+		//Constantes para insertar la imgen y mostrarla
+		const prev 		= document.querySelector("#zoom");
+		const put_image = document.querySelector("#image");
+
+		//Deshabilitamos la vista del prev
+		prev.style.display = "none";
+
 		function inicializarPrev(clase){
-
 			var numClase = clase.classList;
-			//Constantes para insertar la imgen y mostrarla
-			const prev 		= document.querySelector("#zoom");
-			const put_image = document.querySelector("#image");
-
-			//Deshabilitamos la vista del prev
-			prev.style.display = "none";
 
 			for(var x=0; x < numClase.length; x++){
-				numClase.value == "foto" ? recorridoLista(numClase.value, put_image, prev) : alert("No se encontró la clase {foto}");
+				numClase.value == "foto" ? recorridoLista(numClase.value) : alert("No se encontró la clase {foto}");
 			}
-
 		}
 
-		function recorridoLista(clase, put_image, prev){
+		function recorridoLista(clase_name){
 			//Recorremos todos los divs que contienen las imagenes
+			var id_clase = "."+clase_name;
 			[].forEach.call(
 				//Podemos seleccionar la imagen o el div que los contiene por medio de la clase
 				//document.querySelectorAll('.content-foto'),
-				document.querySelectorAll('.foto'),
+				document.querySelectorAll(id_clase),
 				function (el) {
 					//Accedemos a la data que contiene el id de la imagen y la enviamos a la función
 					//mouse_event(el.getAttribute('data-idFoto'))
-					mouse_event(el.id, put_image, prev)
+					mouse_event(el.id)
 				}
 			)
 		}
 
 		//Funcion para el evento mouse que recibe el id de la imagen
-		function mouse_event(id_image, put_image, prev){
+		function mouse_event(id_image){
 			//Seleccionamos la imagen con el id recibido
-			var image = document.querySelector("#"+id_image)
+			var id = "#"+id_image
+			var image = document.querySelector(id)
 			//Clonamos la imagen y la almacenamos en otra variable
 			var cln = image.cloneNode(true)
-
 			//Evento cuando el mouse esté encima del elemento
 			image.addEventListener("mouseover", e => {
 				//put_image.childNodes.length > 1 ? put_image.innerHTML = "" : put_image.appendChild(cln)
