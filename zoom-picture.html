@@ -104,8 +104,8 @@
 	</table>
 	</div>
 	<script type="text/javascript">
-		var clase = document.querySelector(".foto")
-		inicializarPrev(clase)
+		var elemento = document.querySelector(".foto")
+		inicializarPrev(elemento)
 
 		//Constantes para insertar la imgen y mostrarla
 		const prev 		= document.querySelector("#zoom");
@@ -114,23 +114,27 @@
 		//Deshabilitamos la vista del prev
 		prev.style.display = "none";
 
-		function inicializarPrev(clase){
-			var numClase = clase.classList;
-
-			for(var x=0; x < numClase.length; x++){
-				numClase.value == "foto" ? recorridoLista(numClase.value) : alert("No se encontró la clase {foto}");
+		function inicializarPrev(elemento){
+			var numClase = []
+			if(elemento) {
+				numClase = elemento.classList
+				for(var x=0; x < numClase.length; x++){
+					numClase.value == "foto" ? recorridoLista(numClase.value) : alert("No se encontró la clase {foto}")
+				}
+			} else {
+				console.error("No se ha seleccionado ningún elemento, verifique si el elemento existe o que haya sido cargado en el DOM antes de inicializar la función 'inicializarPrev(elemento)'.")
 			}
 		}
 
-		function recorridoLista(clase_name){
+		function recorridoLista(class_name){
+			var name_class = "."+class_name;
 			//Recorremos todos los divs que contienen las imagenes
-			var id_clase = "."+clase_name;
 			[].forEach.call(
 				//Podemos seleccionar la imagen o el div que los contiene por medio de la clase
 				//document.querySelectorAll('.content-foto'),
-				document.querySelectorAll(id_clase),
+				document.querySelectorAll(name_class),
 				function (el) {
-					//Accedemos a la data que contiene el id de la imagen y la enviamos a la función
+					//Accedemos a la data del div que contiene el id de la imagen y la enviamos a la función
 					//mouse_event(el.getAttribute('data-idFoto'))
 					mouse_event(el.id)
 				}
